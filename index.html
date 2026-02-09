@@ -2,175 +2,320 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Smart Calculator India | Loan, EMI, Unit & Utility Calculators</title>
 
-<title>Free EMI, FD, GST, BMI & Currency Calculator India | Smart Utility Hub</title>
-
-<meta name="description" content="Free EMI calculator, FD maturity calculator, GST calculator, BMI, age calculator and live currency converter for India. Accurate and mobile friendly tools.">
-
-<meta name="keywords" content="EMI calculator India, FD calculator online, GST calculator, BMI calculator, age calculator, currency converter">
-
-<meta name="author" content="Smart Utility Hub">
-<meta name="robots" content="index, follow">
+<meta name="description" content="Smart Calculator India offers loan, EMI, simple & compound interest calculators with unit converters for distance, weight, temperature, speed, BMI, age and currency.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
 
-<!-- Open Graph -->
-<meta property="og:title" content="Smart Utility Hub – Free Online Calculators">
-<meta property="og:description" content="Calculate EMI, FD, GST, BMI, Age and Currency instantly.">
-<meta property="og:type" content="website">
+<meta property="og:title" content="Smart Calculator India – All-in-One Calculator">
+<meta property="og:description" content="Loan, EMI, interest, unit converters and daily calculators in one place.">
 <meta property="og:url" content="https://smartcalculatorindia.netlify.app/">
 
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  margin:0;
-  padding:20px;
+:root{
+--primary:#0b5ed7;
+--bg:#f4f6f8;
+--card:#ffffff;
 }
-h1{color:#0b5ed7}
-h2{color:#333}
+body{
+margin:0;
+font-family:system-ui,Arial;
+background:var(--bg);
+}
+header{
+background:var(--primary);
+color:#fff;
+padding:16px;
+text-align:center;
+position:sticky;
+top:0;
+}
+nav a{
+color:#fff;
+margin:0 10px;
+text-decoration:none;
+font-weight:500;
+}
+.container{
+max-width:1300px;
+margin:auto;
+padding:20px;
+}
+.card{
+background:var(--card);
+border-radius:14px;
+padding:20px;
+margin-bottom:25px;
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+h2{margin-top:0}
 input,select,button{
-  width:100%;
-  padding:10px;
-  margin:5px 0;
+width:100%;
+padding:12px;
+margin-top:8px;
+font-size:16px;
 }
 button{
-  background:#0b5ed7;
-  color:#fff;
-  border:none;
-  border-radius:5px;
+background:var(--primary);
+color:#fff;
+border:none;
+border-radius:8px;
 }
 .result{
-  font-weight:bold;
-  color:green;
-  margin-top:5px;
+margin-top:10px;
+font-weight:600;
+color:#0a7d2a;
 }
-section{
-  background:#fff;
-  padding:15px;
-  margin-bottom:20px;
-  border-radius:8px;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
 }
 footer{
-  text-align:center;
-  margin-top:30px;
+text-align:center;
+padding:20px;
+background:#222;
+color:#ccc;
 }
-footer a{
-  margin:0 8px;
-}
+footer a{color:#9ecbff;text-decoration:none;margin:0 8px}
 </style>
 </head>
 
 <body>
 
-<h1>Smart Utility Hub – Free Online Calculators</h1>
+<header>
+<h1>Smart Calculator India</h1>
+<nav>
+<a href="#loan">Loan</a>
+<a href="#emi">EMI</a>
+<a href="#units">Unit Converters</a>
+<a href="#tools">Utilities</a>
+</nav>
+</header>
 
-<section>
+<div class="container">
+
+<!-- LOAN / INTEREST -->
+<div class="card" id="loan">
+<h2>Loan / Interest Calculator</h2>
+<input id="p" placeholder="Principal Amount (₹)">
+<input id="r" placeholder="Interest Rate (%)">
+
+<select id="interestType">
+  <option value="simple">Simple Interest</option>
+  <option value="compound">Compound Interest</option>
+</select>
+
+<select id="timeUnit">
+  <option value="year">Years</option>
+  <option value="month">Months</option>
+  <option value="day">Days</option>
+</select>
+
+<input id="t" placeholder="Time Value">
+
+<select id="compoundType">
+  <option value="1">Yearly</option>
+  <option value="4">Quarterly</option>
+  <option value="12">Monthly</option>
+  <option value="365">Daily</option>
+</select>
+
+<button onclick="interestCalc()">Calculate</button>
+<div class="result" id="interestRes"></div>
+</div>
+
+<!-- EMI -->
+<div class="card" id="emi">
 <h2>EMI Calculator</h2>
-<input id="loan" placeholder="Loan Amount">
-<input id="rate" placeholder="Interest Rate (%)">
-<input id="tenure" placeholder="Tenure (Years)">
+<input id="loanAmt" placeholder="Loan Amount (₹)">
+<input id="loanRate" placeholder="Interest Rate (%)">
+<input id="loanTenure" placeholder="Tenure (Years)">
 <button onclick="emiCalc()">Calculate EMI</button>
 <div class="result" id="emiRes"></div>
-<p>This EMI calculator helps calculate monthly loan instalments for home, personal and vehicle loans in India.</p>
-</section>
+<div class="result" id="emiExtra"></div>
+</div>
 
-<section>
-<h2>FD Calculator</h2>
-<input id="fdAmt" placeholder="Deposit Amount">
-<input id="fdRate" placeholder="Interest Rate (%)">
-<input id="fdYears" placeholder="Years">
-<button onclick="fdCalc()">Calculate</button>
-<div class="result" id="fdRes"></div>
-<p>This FD calculator estimates maturity amount using compound interest.</p>
-</section>
+<!-- UNIT CONVERTERS -->
+<div class="card" id="units">
+<h2>Unit Converters</h2>
 
-<section>
-<h2>GST Calculator</h2>
-<input id="gstAmt" placeholder="Amount">
-<input id="gstRate" placeholder="GST (%)">
-<button onclick="gstAdd()">Add GST</button>
-<button onclick="gstRemove()">Remove GST</button>
-<div class="result" id="gstRes"></div>
-<p>Use this GST calculator to add or remove GST from any amount.</p>
-</section>
+<div class="grid">
 
-<section>
-<h2>BMI Calculator</h2>
+<!-- Distance -->
+<div>
+<h3>Distance</h3>
+<input id="distVal" placeholder="Value">
+<select id="fromDist">
+<option value="km">Kilometer</option>
+<option value="m">Meter</option>
+<option value="mile">Mile</option>
+<option value="yard">Yard</option>
+<option value="feet">Feet</option>
+</select>
+<select id="toDist">
+<option value="km">Kilometer</option>
+<option value="m">Meter</option>
+<option value="mile">Mile</option>
+<option value="yard">Yard</option>
+<option value="feet">Feet</option>
+</select>
+<button onclick="distanceCalc()">Convert</button>
+<div class="result" id="distRes"></div>
+</div>
+
+<!-- Weight -->
+<div>
+<h3>Weight</h3>
+<input id="wVal" placeholder="Value">
+<select id="fromW">
+<option value="kg">Kilogram</option>
+<option value="g">Gram</option>
+<option value="lb">Pound</option>
+<option value="oz">Ounce</option>
+</select>
+<select id="toW">
+<option value="kg">Kilogram</option>
+<option value="g">Gram</option>
+<option value="lb">Pound</option>
+<option value="oz">Ounce</option>
+</select>
+<button onclick="weightCalc()">Convert</button>
+<div class="result" id="wRes"></div>
+</div>
+
+<!-- Temperature -->
+<div>
+<h3>Temperature</h3>
+<input id="tempVal" placeholder="Value">
+<select id="tempFrom">
+<option value="c">Celsius</option>
+<option value="f">Fahrenheit</option>
+<option value="k">Kelvin</option>
+</select>
+<select id="tempTo">
+<option value="c">Celsius</option>
+<option value="f">Fahrenheit</option>
+<option value="k">Kelvin</option>
+</select>
+<button onclick="tempCalc()">Convert</button>
+<div class="result" id="tempRes"></div>
+</div>
+
+<!-- Speed -->
+<div>
+<h3>Speed</h3>
+<input id="speedVal" placeholder="Value">
+<select id="speedFrom">
+<option value="kmh">km/h</option>
+<option value="ms">m/s</option>
+<option value="mph">mph</option>
+</select>
+<select id="speedTo">
+<option value="kmh">km/h</option>
+<option value="ms">m/s</option>
+<option value="mph">mph</option>
+</select>
+<button onclick="speedCalc()">Convert</button>
+<div class="result" id="speedRes"></div>
+</div>
+
+</div>
+</div>
+
+<!-- UTILITIES -->
+<div class="card" id="tools">
+<h2>Daily Utilities</h2>
+
+<div class="grid">
+
+<div>
+<h3>Age Calculator</h3>
+<input type="date" id="dob">
+<button onclick="ageCalc()">Calculate</button>
+<div class="result" id="ageRes"></div>
+</div>
+
+<div>
+<h3>Date Difference</h3>
+<input type="date" id="d1">
+<input type="date" id="d2">
+<button onclick="dateDiff()">Calculate</button>
+<div class="result" id="dateRes"></div>
+</div>
+
+<div>
+<h3>BMI Calculator</h3>
 <input id="height" placeholder="Height (cm)">
 <input id="weight" placeholder="Weight (kg)">
-<button onclick="bmiCalc()">Calculate BMI</button>
+<button onclick="bmiCalc()">Calculate</button>
 <div class="result" id="bmiRes"></div>
-<p>BMI calculator helps determine body mass index and health category.</p>
-</section>
+</div>
 
-<section>
-<h2>Currency Converter</h2>
-<input id="amount" placeholder="Amount">
-<select id="from"></select>
-<select id="to"></select>
-<button onclick="convert()">Convert</button>
-<div class="result" id="curRes"></div>
-<p>Live currency converter using real-time exchange rates.</p>
-</section>
+</div>
+</div>
+
+</div>
 
 <footer>
 <a href="about.html">About</a> |
-<a href="privacy.html">Privacy Policy</a> |
+<a href="privacy.html">Privacy</a> |
 <a href="terms.html">Terms</a> |
 <a href="disclaimer.html">Disclaimer</a>
 </footer>
 
 <script>
+// Interest
+function interestCalc(){
+let p=+p.value,r=+document.getElementById("r").value/100;
+let t=+document.getElementById("t").value;
+let unit=timeUnit.value,type=interestType.value,n=+compoundType.value;
+if(unit==="month")t/=12;if(unit==="day")t/=365;
+let amt=type==="simple"?p*(1+r*t):p*Math.pow((1+r/n),(n*t));
+interestRes.innerText=`Final Amount: ₹${amt.toFixed(2)} | Interest: ₹${(amt-p).toFixed(2)}`;
+}
+
+// EMI
 function emiCalc(){
-  let p = loan.value;
-  let r = rate.value / 1200;
-  let n = tenure.value * 12;
-  let emi = p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-  emiRes.innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+let p=loanAmt.value,r=loanRate.value/1200,n=loanTenure.value*12;
+let emi=p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+emiRes.innerText="Monthly EMI: ₹"+emi.toFixed(2);
+emiExtra.innerText="Total: ₹"+(emi*n).toFixed(2)+" | Interest: ₹"+((emi*n)-p).toFixed(2);
 }
 
-function fdCalc(){
-  let m = fdAmt.value * Math.pow((1 + fdRate.value/100), fdYears.value);
-  fdRes.innerText = "Maturity Amount: ₹" + m.toFixed(2);
+// Distance
+function distanceCalc(){
+let map={km:1000,m:1,mile:1609.34,yard:0.9144,feet:0.3048};
+let m=distVal.value*map[fromDist.value];
+distRes.innerText=(m/map[toDist.value]).toFixed(4)+" "+toDist.value;
 }
 
-function gstAdd(){
-  let a = +gstAmt.value;
-  let r = gstRate.value;
-  gstRes.innerText = "Total Amount: ₹" + (a + a*r/100).toFixed(2);
+// Weight
+function weightCalc(){
+let map={kg:1,g:0.001,lb:0.453592,oz:0.0283495};
+let kg=wVal.value*map[fromW.value];
+wRes.innerText=(kg/map[toW.value]).toFixed(4)+" "+toW.value;
 }
 
-function gstRemove(){
-  let a = gstAmt.value;
-  let r = gstRate.value;
-  gstRes.innerText = "Base Amount: ₹" + (a / (1+r/100)).toFixed(2);
+// Temperature
+function tempCalc(){
+let v=+tempVal.value,f=tempFrom.value,t=tempTo.value;
+let c=f==="c"?v:f==="f"?(v-32)*5/9:v-273.15;
+tempRes.innerText=(t==="c"?c:t==="f"?c*9/5+32:c+273.15).toFixed(2);
 }
 
-function bmiCalc(){
-  let h = height.value / 100;
-  let bmi = weight.value / (h*h);
-  bmiRes.innerText = "BMI: " + bmi.toFixed(1);
+// Speed
+function speedCalc(){
+let map={kmh:1,ms:3.6,mph:1.60934};
+let kmh=speedVal.value*map[speedFrom.value];
+speedRes.innerText=(kmh/map[speedTo.value]).toFixed(2)+" "+speedTo.value;
 }
 
-fetch("https://api.exchangerate.host/latest")
-.then(res => res.json())
-.then(data => {
-  Object.keys(data.rates).forEach(c => {
-    from.innerHTML += `<option>${c}</option>`;
-    to.innerHTML += `<option>${c}</option>`;
-  });
-  from.value = "INR";
-  to.value = "USD";
-});
-
-function convert(){
-  fetch(`https://api.exchangerate.host/latest?base=${from.value}&symbols=${to.value}`)
-  .then(res => res.json())
-  .then(data => {
-    curRes.innerText =
-      `${amount.value} ${from.value} = ${(amount.value * data.rates[to.value]).toFixed(2)} ${to.value}`;
-  });
-}
+// Utilities
+function bmiCalc(){bmiRes.innerText="BMI: "+(weight.value/((height.value/100)**2)).toFixed(1);}
+function ageCalc(){let d=new Date(dob.value),t=new Date();let a=t.getFullYear()-d.getFullYear();if(t<new Date(d.setFullYear(t.getFullYear())))a--;ageRes.innerText=a+" years";}
+function dateDiff(){dateRes.innerText=Math.abs(new Date(d2.value)-new Date(d1.value))/86400000+" days";}
 </script>
 
 </body>
