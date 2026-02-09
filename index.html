@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>Free EMI, FD, GST, BMI & Currency Calculator India | Smart Utility Hub</title>
+
+<meta name="description" content="Free EMI calculator, FD maturity calculator, GST calculator, BMI, age calculator and live currency converter for India. Accurate and mobile friendly tools.">
+
+<meta name="keywords" content="EMI calculator India, FD calculator online, GST calculator, BMI calculator, age calculator, currency converter">
+
+<meta name="author" content="Smart Utility Hub">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Smart Utility Hub – Free Online Calculators">
+<meta property="og:description" content="Calculate EMI, FD, GST, BMI, Age and Currency instantly.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://github.com/chinmayroutra/Smart-utility">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+  margin:0;
+  padding:20px;
+}
+h1{color:#0b5ed7}
+h2{color:#333}
+input,select,button{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+}
+button{
+  background:#0b5ed7;
+  color:#fff;
+  border:none;
+  border-radius:5px;
+}
+.result{
+  font-weight:bold;
+  color:green;
+  margin-top:5px;
+}
+section{
+  background:#fff;
+  padding:15px;
+  margin-bottom:20px;
+  border-radius:8px;
+}
+footer{
+  text-align:center;
+  margin-top:30px;
+}
+footer a{
+  margin:0 8px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Smart Utility Hub – Free Online Calculators</h1>
+
+<section>
+<h2>EMI Calculator</h2>
+<input id="loan" placeholder="Loan Amount">
+<input id="rate" placeholder="Interest Rate (%)">
+<input id="tenure" placeholder="Tenure (Years)">
+<button onclick="emiCalc()">Calculate EMI</button>
+<div class="result" id="emiRes"></div>
+<p>This EMI calculator helps calculate monthly loan instalments for home, personal and vehicle loans in India.</p>
+</section>
+
+<section>
+<h2>FD Calculator</h2>
+<input id="fdAmt" placeholder="Deposit Amount">
+<input id="fdRate" placeholder="Interest Rate (%)">
+<input id="fdYears" placeholder="Years">
+<button onclick="fdCalc()">Calculate</button>
+<div class="result" id="fdRes"></div>
+<p>This FD calculator estimates maturity amount using compound interest.</p>
+</section>
+
+<section>
+<h2>GST Calculator</h2>
+<input id="gstAmt" placeholder="Amount">
+<input id="gstRate" placeholder="GST (%)">
+<button onclick="gstAdd()">Add GST</button>
+<button onclick="gstRemove()">Remove GST</button>
+<div class="result" id="gstRes"></div>
+<p>Use this GST calculator to add or remove GST from any amount.</p>
+</section>
+
+<section>
+<h2>BMI Calculator</h2>
+<input id="height" placeholder="Height (cm)">
+<input id="weight" placeholder="Weight (kg)">
+<button onclick="bmiCalc()">Calculate BMI</button>
+<div class="result" id="bmiRes"></div>
+<p>BMI calculator helps determine body mass index and health category.</p>
+</section>
+
+<section>
+<h2>Currency Converter</h2>
+<input id="amount" placeholder="Amount">
+<select id="from"></select>
+<select id="to"></select>
+<button onclick="convert()">Convert</button>
+<div class="result" id="curRes"></div>
+<p>Live currency converter using real-time exchange rates.</p>
+</section>
+
+<footer>
+<a href="about.html">About</a> |
+<a href="privacy.html">Privacy Policy</a> |
+<a href="terms.html">Terms</a> |
+<a href="disclaimer.html">Disclaimer</a>
+</footer>
+
+<script>
+function emiCalc(){
+  let p = loan.value;
+  let r = rate.value / 1200;
+  let n = tenure.value * 12;
+  let emi = p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  emiRes.innerText = "Monthly EMI: ₹" + emi.toFixed(2);
+}
+
+function fdCalc(){
+  let m = fdAmt.value * Math.pow((1 + fdRate.value/100), fdYears.value);
+  fdRes.innerText = "Maturity Amount: ₹" + m.toFixed(2);
+}
+
+function gstAdd(){
+  let a = +gstAmt.value;
+  let r = gstRate.value;
+  gstRes.innerText = "Total Amount: ₹" + (a + a*r/100).toFixed(2);
+}
+
+function gstRemove(){
+  let a = gstAmt.value;
+  let r = gstRate.value;
+  gstRes.innerText = "Base Amount: ₹" + (a / (1+r/100)).toFixed(2);
+}
+
+function bmiCalc(){
+  let h = height.value / 100;
+  let bmi = weight.value / (h*h);
+  bmiRes.innerText = "BMI: " + bmi.toFixed(1);
+}
+
+fetch("https://api.exchangerate.host/latest")
+.then(res => res.json())
+.then(data => {
+  Object.keys(data.rates).forEach(c => {
+    from.innerHTML += `<option>${c}</option>`;
+    to.innerHTML += `<option>${c}</option>`;
+  });
+  from.value = "INR";
+  to.value = "USD";
+});
+
+function convert(){
+  fetch(`https://api.exchangerate.host/latest?base=${from.value}&symbols=${to.value}`)
+  .then(res => res.json())
+  .then(data => {
+    curRes.innerText =
+      `${amount.value} ${from.value} = ${(amount.value * data.rates[to.value]).toFixed(2)} ${to.value}`;
+  });
+}
+</script>
+
+</body>
+</html>
