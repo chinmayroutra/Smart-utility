@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Smart Calculator India | Loan, EMI, Unit & Utility Calculators</title>
+<title>Smart Calculator India | All-in-One Calculator</title>
 
-<meta name="description" content="Smart Calculator India offers loan, EMI, simple & compound interest calculators with unit converters for distance, weight, temperature, speed, BMI, age and currency.">
+<meta name="description" content="Smart Calculator India provides loan, EMI, interest, unit converters and daily calculators in one app-like interface.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-
-<meta property="og:title" content="Smart Calculator India – All-in-One Calculator">
-<meta property="og:description" content="Loan, EMI, interest, unit converters and daily calculators in one place.">
 <meta property="og:url" content="https://smartcalculatorindia.netlify.app/">
 
 <style>
@@ -17,39 +14,60 @@
 --primary:#0b5ed7;
 --bg:#f4f6f8;
 --card:#ffffff;
+--sidebar:#1f2937;
+--text:#111827;
 }
+*{box-sizing:border-box}
 body{
 margin:0;
 font-family:system-ui,Arial;
 background:var(--bg);
+color:var(--text);
 }
-header{
-background:var(--primary);
+.app{display:flex;min-height:100vh}
+
+/* Sidebar */
+.sidebar{
+width:240px;
+background:var(--sidebar);
 color:#fff;
-padding:16px;
-text-align:center;
-position:sticky;
-top:0;
+padding:15px;
+position:fixed;
+top:0;bottom:0;left:0;
 }
-nav a{
+.sidebar h2{text-align:center;margin:10px 0 20px}
+.menu button{
+width:100%;
+background:none;
+border:none;
 color:#fff;
-margin:0 10px;
-text-decoration:none;
-font-weight:500;
+padding:12px;
+font-size:15px;
+text-align:left;
+border-radius:8px;
+margin-bottom:6px;
 }
-.container{
-max-width:1300px;
-margin:auto;
-padding:20px;
-}
+.menu button.active,
+.menu button:hover{background:rgba(255,255,255,.15)}
+
+/* Content */
+.content{margin-left:240px;padding:20px;width:100%}
+.section{display:none;max-width:1200px;margin:auto}
+.section.active{display:block}
+
+/* Cards */
 .card{
 background:var(--card);
-border-radius:14px;
 padding:20px;
-margin-bottom:25px;
+border-radius:14px;
+margin-bottom:20px;
 box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
-h2{margin-top:0}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
 input,select,button{
 width:100%;
 padding:12px;
@@ -62,72 +80,64 @@ color:#fff;
 border:none;
 border-radius:8px;
 }
-.result{
-margin-top:10px;
-font-weight:600;
-color:#0a7d2a;
+.result{margin-top:10px;font-weight:600;color:#0a7d2a}
+
+@media(max-width:900px){
+.sidebar{position:relative;width:100%}
+.content{margin-left:0}
+.menu{display:flex;overflow:auto}
+.menu button{white-space:nowrap}
 }
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-}
-footer{
-text-align:center;
-padding:20px;
-background:#222;
-color:#ccc;
-}
-footer a{color:#9ecbff;text-decoration:none;margin:0 8px}
 </style>
 </head>
 
 <body>
+<div class="app">
 
-<header>
-<h1>Smart Calculator India</h1>
-<nav>
-<a href="#loan">Loan</a>
-<a href="#emi">EMI</a>
-<a href="#units">Unit Converters</a>
-<a href="#tools">Utilities</a>
-</nav>
-</header>
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>Smart Calculator</h2>
+<div class="menu">
+<button class="active" onclick="show('loan')">🏦 Loan</button>
+<button onclick="show('emi')">💸 EMI</button>
+<button onclick="show('units')">📏 Units</button>
+<button onclick="show('tools')">🧠 Utilities</button>
+</div>
+</div>
 
-<div class="container">
+<!-- CONTENT -->
+<div class="content">
 
-<!-- LOAN / INTEREST -->
-<div class="card" id="loan">
+<!-- LOAN -->
+<div class="section active" id="loan">
+<div class="card">
 <h2>Loan / Interest Calculator</h2>
-<input id="p" placeholder="Principal Amount (₹)">
+<input id="p" placeholder="Principal (₹)">
 <input id="r" placeholder="Interest Rate (%)">
-
 <select id="interestType">
-  <option value="simple">Simple Interest</option>
-  <option value="compound">Compound Interest</option>
+<option value="simple">Simple Interest</option>
+<option value="compound">Compound Interest</option>
 </select>
-
 <select id="timeUnit">
-  <option value="year">Years</option>
-  <option value="month">Months</option>
-  <option value="day">Days</option>
+<option value="year">Years</option>
+<option value="month">Months</option>
+<option value="day">Days</option>
 </select>
-
 <input id="t" placeholder="Time Value">
-
 <select id="compoundType">
-  <option value="1">Yearly</option>
-  <option value="4">Quarterly</option>
-  <option value="12">Monthly</option>
-  <option value="365">Daily</option>
+<option value="1">Yearly</option>
+<option value="4">Quarterly</option>
+<option value="12">Monthly</option>
+<option value="365">Daily</option>
 </select>
-
 <button onclick="interestCalc()">Calculate</button>
 <div class="result" id="interestRes"></div>
 </div>
+</div>
 
 <!-- EMI -->
-<div class="card" id="emi">
+<div class="section" id="emi">
+<div class="card">
 <h2>EMI Calculator</h2>
 <input id="loanAmt" placeholder="Loan Amount (₹)">
 <input id="loanRate" placeholder="Interest Rate (%)">
@@ -136,87 +146,44 @@ footer a{color:#9ecbff;text-decoration:none;margin:0 8px}
 <div class="result" id="emiRes"></div>
 <div class="result" id="emiExtra"></div>
 </div>
+</div>
 
-<!-- UNIT CONVERTERS -->
-<div class="card" id="units">
-<h2>Unit Converters</h2>
-
+<!-- UNITS -->
+<div class="section" id="units">
 <div class="grid">
 
-<!-- Distance -->
-<div>
+<div class="card">
 <h3>Distance</h3>
 <input id="distVal" placeholder="Value">
-<select id="fromDist">
-<option value="km">Kilometer</option>
-<option value="m">Meter</option>
-<option value="mile">Mile</option>
-<option value="yard">Yard</option>
-<option value="feet">Feet</option>
-</select>
-<select id="toDist">
-<option value="km">Kilometer</option>
-<option value="m">Meter</option>
-<option value="mile">Mile</option>
-<option value="yard">Yard</option>
-<option value="feet">Feet</option>
-</select>
+<select id="fromDist"><option value="km">km</option><option value="m">m</option><option value="mile">mile</option><option value="yard">yard</option><option value="feet">feet</option></select>
+<select id="toDist"><option value="km">km</option><option value="m">m</option><option value="mile">mile</option><option value="yard">yard</option><option value="feet">feet</option></select>
 <button onclick="distanceCalc()">Convert</button>
 <div class="result" id="distRes"></div>
 </div>
 
-<!-- Weight -->
-<div>
+<div class="card">
 <h3>Weight</h3>
 <input id="wVal" placeholder="Value">
-<select id="fromW">
-<option value="kg">Kilogram</option>
-<option value="g">Gram</option>
-<option value="lb">Pound</option>
-<option value="oz">Ounce</option>
-</select>
-<select id="toW">
-<option value="kg">Kilogram</option>
-<option value="g">Gram</option>
-<option value="lb">Pound</option>
-<option value="oz">Ounce</option>
-</select>
+<select id="fromW"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option><option value="oz">oz</option></select>
+<select id="toW"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option><option value="oz">oz</option></select>
 <button onclick="weightCalc()">Convert</button>
 <div class="result" id="wRes"></div>
 </div>
 
-<!-- Temperature -->
-<div>
+<div class="card">
 <h3>Temperature</h3>
 <input id="tempVal" placeholder="Value">
-<select id="tempFrom">
-<option value="c">Celsius</option>
-<option value="f">Fahrenheit</option>
-<option value="k">Kelvin</option>
-</select>
-<select id="tempTo">
-<option value="c">Celsius</option>
-<option value="f">Fahrenheit</option>
-<option value="k">Kelvin</option>
-</select>
+<select id="tempFrom"><option value="c">°C</option><option value="f">°F</option><option value="k">K</option></select>
+<select id="tempTo"><option value="c">°C</option><option value="f">°F</option><option value="k">K</option></select>
 <button onclick="tempCalc()">Convert</button>
 <div class="result" id="tempRes"></div>
 </div>
 
-<!-- Speed -->
-<div>
+<div class="card">
 <h3>Speed</h3>
 <input id="speedVal" placeholder="Value">
-<select id="speedFrom">
-<option value="kmh">km/h</option>
-<option value="ms">m/s</option>
-<option value="mph">mph</option>
-</select>
-<select id="speedTo">
-<option value="kmh">km/h</option>
-<option value="ms">m/s</option>
-<option value="mph">mph</option>
-</select>
+<select id="speedFrom"><option value="kmh">km/h</option><option value="ms">m/s</option><option value="mph">mph</option></select>
+<select id="speedTo"><option value="kmh">km/h</option><option value="ms">m/s</option><option value="mph">mph</option></select>
 <button onclick="speedCalc()">Convert</button>
 <div class="result" id="speedRes"></div>
 </div>
@@ -225,19 +192,17 @@ footer a{color:#9ecbff;text-decoration:none;margin:0 8px}
 </div>
 
 <!-- UTILITIES -->
-<div class="card" id="tools">
-<h2>Daily Utilities</h2>
-
+<div class="section" id="tools">
 <div class="grid">
 
-<div>
+<div class="card">
 <h3>Age Calculator</h3>
 <input type="date" id="dob">
 <button onclick="ageCalc()">Calculate</button>
 <div class="result" id="ageRes"></div>
 </div>
 
-<div>
+<div class="card">
 <h3>Date Difference</h3>
 <input type="date" id="d1">
 <input type="date" id="d2">
@@ -245,7 +210,7 @@ footer a{color:#9ecbff;text-decoration:none;margin:0 8px}
 <div class="result" id="dateRes"></div>
 </div>
 
-<div>
+<div class="card">
 <h3>BMI Calculator</h3>
 <input id="height" placeholder="Height (cm)">
 <input id="weight" placeholder="Weight (kg)">
@@ -257,62 +222,34 @@ footer a{color:#9ecbff;text-decoration:none;margin:0 8px}
 </div>
 
 </div>
-
-<footer>
-<a href="about.html">About</a> |
-<a href="privacy.html">Privacy</a> |
-<a href="terms.html">Terms</a> |
-<a href="disclaimer.html">Disclaimer</a>
-</footer>
+</div>
 
 <script>
-// Interest
-function interestCalc(){
-let p=+p.value,r=+document.getElementById("r").value/100;
-let t=+document.getElementById("t").value;
-let unit=timeUnit.value,type=interestType.value,n=+compoundType.value;
-if(unit==="month")t/=12;if(unit==="day")t/=365;
-let amt=type==="simple"?p*(1+r*t):p*Math.pow((1+r/n),(n*t));
-interestRes.innerText=`Final Amount: ₹${amt.toFixed(2)} | Interest: ₹${(amt-p).toFixed(2)}`;
+function show(id){
+document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+event.target.classList.add('active');
 }
 
-// EMI
+/* Calculations */
+function interestCalc(){
+let P=+p.value,R=+r.value/100,T=+t.value;
+if(timeUnit.value==="month")T/=12;
+if(timeUnit.value==="day")T/=365;
+let A=interestType.value==="simple"?P*(1+R*T):P*Math.pow((1+R/compoundType.value),(compoundType.value*T));
+interestRes.innerText=`Final Amount: ₹${A.toFixed(2)} | Interest: ₹${(A-P).toFixed(2)}`;
+}
 function emiCalc(){
 let p=loanAmt.value,r=loanRate.value/1200,n=loanTenure.value*12;
 let emi=p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
 emiRes.innerText="Monthly EMI: ₹"+emi.toFixed(2);
 emiExtra.innerText="Total: ₹"+(emi*n).toFixed(2)+" | Interest: ₹"+((emi*n)-p).toFixed(2);
 }
-
-// Distance
-function distanceCalc(){
-let map={km:1000,m:1,mile:1609.34,yard:0.9144,feet:0.3048};
-let m=distVal.value*map[fromDist.value];
-distRes.innerText=(m/map[toDist.value]).toFixed(4)+" "+toDist.value;
-}
-
-// Weight
-function weightCalc(){
-let map={kg:1,g:0.001,lb:0.453592,oz:0.0283495};
-let kg=wVal.value*map[fromW.value];
-wRes.innerText=(kg/map[toW.value]).toFixed(4)+" "+toW.value;
-}
-
-// Temperature
-function tempCalc(){
-let v=+tempVal.value,f=tempFrom.value,t=tempTo.value;
-let c=f==="c"?v:f==="f"?(v-32)*5/9:v-273.15;
-tempRes.innerText=(t==="c"?c:t==="f"?c*9/5+32:c+273.15).toFixed(2);
-}
-
-// Speed
-function speedCalc(){
-let map={kmh:1,ms:3.6,mph:1.60934};
-let kmh=speedVal.value*map[speedFrom.value];
-speedRes.innerText=(kmh/map[speedTo.value]).toFixed(2)+" "+speedTo.value;
-}
-
-// Utilities
+function distanceCalc(){let m={km:1000,m:1,mile:1609.34,yard:.9144,feet:.3048};let x=distVal.value*m[fromDist.value];distRes.innerText=(x/m[toDist.value]).toFixed(4)+" "+toDist.value;}
+function weightCalc(){let m={kg:1,g:.001,lb:.453592,oz:.0283495};let x=wVal.value*m[fromW.value];wRes.innerText=(x/m[toW.value]).toFixed(4)+" "+toW.value;}
+function tempCalc(){let v=+tempVal.value,c=tempFrom.value==="c"?v:tempFrom.value==="f"?(v-32)*5/9:v-273.15;tempRes.innerText=(tempTo.value==="c"?c:tempTo.value==="f"?c*9/5+32:c+273.15).toFixed(2);}
+function speedCalc(){let m={kmh:1,ms:3.6,mph:1.60934};let x=speedVal.value*m[speedFrom.value];speedRes.innerText=(x/m[speedTo.value]).toFixed(2)+" "+speedTo.value;}
 function bmiCalc(){bmiRes.innerText="BMI: "+(weight.value/((height.value/100)**2)).toFixed(1);}
 function ageCalc(){let d=new Date(dob.value),t=new Date();let a=t.getFullYear()-d.getFullYear();if(t<new Date(d.setFullYear(t.getFullYear())))a--;ageRes.innerText=a+" years";}
 function dateDiff(){dateRes.innerText=Math.abs(new Date(d2.value)-new Date(d1.value))/86400000+" days";}
