@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Smart Calculator India | All-in-One Calculator</title>
+<title>Smart Calculator India – All-in-One Online Calculator</title>
 
-<meta name="description" content="Smart Calculator India provides loan, EMI, interest, currency converter, unit converters and daily calculators in one app-like interface.">
+<meta name="description" content="Smart Calculator India offers EMI calculator, loan interest calculator, currency converter, unit converters, BMI, age and date calculators in one place.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<meta property="og:url" content="https://smartcalculatorindia.netlify.app/">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1HZMBKCVVR"></script>
@@ -45,7 +44,11 @@ padding:15px;
 position:fixed;
 top:0;bottom:0;left:0;
 }
-.sidebar h2{text-align:center;margin:10px 0 20px}
+.sidebar h1{
+font-size:18px;
+text-align:center;
+margin-bottom:20px;
+}
 .menu button{
 width:100%;
 background:none;
@@ -110,8 +113,8 @@ color:#0a7d2a;
 footer{
 text-align:center;
 padding:15px;
-color:#777;
 font-size:14px;
+color:#777;
 }
 
 @media(max-width:900px){
@@ -128,14 +131,14 @@ font-size:14px;
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-<h2>Smart Calculator</h2>
+<h1>Smart Calculator India</h1>
 <div class="menu">
 <button class="active" onclick="show('loan',this)">🏦 Loan</button>
 <button onclick="show('emi',this)">💸 EMI</button>
 <button onclick="show('units',this)">📏 Units</button>
 <button onclick="show('currency',this)">💱 Currency</button>
 <button onclick="show('tools',this)">🧠 Utilities</button>
-<button onclick="show('info',this)">ℹ️ Info</button>
+<button onclick="show('info',this)">ℹ️ About</button>
 </div>
 </div>
 
@@ -145,45 +148,39 @@ font-size:14px;
 <!-- LOAN -->
 <div class="section active" id="loan">
 <div class="card">
-<h2>Loan / Interest Calculator</h2>
-<input id="p" placeholder="Principal (₹)">
+<h2>Loan & Interest Calculator</h2>
+<input id="p" placeholder="Principal Amount (₹)">
 <input id="r" placeholder="Interest Rate (%)">
-
 <select id="interestType">
 <option value="simple">Simple Interest</option>
 <option value="compound">Compound Interest</option>
 </select>
-
 <select id="timeUnit">
 <option value="year">Years</option>
 <option value="month">Months</option>
 <option value="day">Days</option>
 </select>
-
 <input id="t" placeholder="Time Value">
-
 <select id="compoundType">
 <option value="1">Yearly</option>
 <option value="4">Quarterly</option>
 <option value="12">Monthly</option>
 <option value="365">Daily</option>
 </select>
-
 <button onclick="interestCalc()">Calculate</button>
 <div class="result" id="interestRes"></div>
 </div>
-</div>
+
 <div class="card">
-<h3>Simple and Compound Interest Calculator</h3>
+<h3>Simple and Compound Interest Calculator Online</h3>
 <p>
-This calculator allows you to calculate both simple interest and compound
-interest for different time periods such as days, months, or years.
-</p>
-<p>
-It helps you compare loan and investment options and understand how
-interest grows over time.
+This calculator helps you calculate simple interest and compound interest
+for loans or investments over days, months, or years. It is useful for
+understanding loan costs and comparing financial options.
 </p>
 </div>
+</div>
+
 <!-- EMI -->
 <div class="section" id="emi">
 <div class="card">
@@ -195,36 +192,35 @@ interest grows over time.
 <div class="result" id="emiRes"></div>
 <div class="result" id="emiExtra"></div>
 </div>
-</div>
+
 <div class="card">
-<h3>How EMI Is Calculated</h3>
+<h3>How EMI Is Calculated in India</h3>
 <p>
-EMI (Equated Monthly Installment) is the fixed monthly amount paid to repay
-a loan. It depends on the loan amount, interest rate, and loan tenure.
-</p>
-<p>
-This EMI calculator helps you estimate your monthly EMI, total repayment,
-and interest amount before taking a loan in India.
+EMI (Equated Monthly Installment) is the fixed monthly payment made to repay
+a loan. This EMI calculator helps estimate monthly EMI, total payment, and
+interest amount before applying for a loan.
 </p>
 </div>
+</div>
+
 <!-- UNITS -->
 <div class="section" id="units">
 <div class="grid">
 
 <div class="card">
-<h3>Distance</h3>
+<h2>Distance Converter</h2>
 <input id="distVal" placeholder="Value">
-<select id="fromDist"><option value="km">km</option><option value="m">m</option><option value="mile">mile</option><option value="yard">yard</option><option value="feet">feet</option></select>
-<select id="toDist"><option value="km">km</option><option value="m">m</option><option value="mile">mile</option><option value="yard">yard</option><option value="feet">feet</option></select>
+<select id="fromDist"><option value="km">km</option><option value="m">m</option><option value="mile">mile</option></select>
+<select id="toDist"><option value="km">km</option><option value="m">m</option><option value="mile">mile</option></select>
 <button onclick="distanceCalc()">Convert</button>
 <div class="result" id="distRes"></div>
 </div>
 
 <div class="card">
-<h3>Weight</h3>
+<h2>Weight Converter</h2>
 <input id="wVal" placeholder="Value">
-<select id="fromW"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option><option value="oz">oz</option></select>
-<select id="toW"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option><option value="oz">oz</option></select>
+<select id="fromW"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option></select>
+<select id="toW"><option value="kg">kg</option><option value="g">g</option><option value="lb">lb</option></select>
 <button onclick="weightCalc()">Convert</button>
 <div class="result" id="wRes"></div>
 </div>
@@ -235,62 +231,43 @@ and interest amount before taking a loan in India.
 <!-- CURRENCY -->
 <div class="section" id="currency">
 <div class="card">
-<h2>Currency Converter (Live)</h2>
+<h2>Live Currency Converter</h2>
 <input id="curAmount" placeholder="Amount">
 <select id="curFrom"></select>
 <select id="curTo"></select>
 <button onclick="convertCurrency()">Convert</button>
 <div class="result" id="curResult"></div>
 </div>
-</div>
+
 <div class="card">
-<h3>Live Currency Converter</h3>
+<h3>Real-Time Currency Conversion</h3>
 <p>
-This currency converter provides real-time exchange rates for popular
-currencies such as INR, USD, EUR, and GBP.
-</p>
-<p>
-It is useful for travelers, online shoppers, freelancers, and businesses
-that deal with international payments.
+This live currency converter provides real-time exchange rates for INR,
+USD, EUR, GBP and other major currencies. Useful for travel, business,
+and online payments.
 </p>
 </div>
+</div>
+
 <!-- UTILITIES -->
 <div class="section" id="tools">
 <div class="grid">
 
 <div class="card">
-<h3>Age Calculator</h3>
-<input type="date" id="dob">
-<button onclick="ageCalc()">Calculate</button>
-<div class="result" id="ageRes"></div>
-</div>
-
-<div class="card">
-<h3>Date Difference</h3>
-<input type="date" id="d1">
-<input type="date" id="d2">
-<button onclick="dateDiff()">Calculate</button>
-<div class="result" id="dateRes"></div>
-</div>
-
-<div class="card">
-<h3>BMI Calculator</h3>
+<h2>BMI Calculator</h2>
 <input id="height" placeholder="Height (cm)">
 <input id="weight" placeholder="Weight (kg)">
 <button onclick="bmiCalc()">Calculate</button>
 <div class="result" id="bmiRes"></div>
 </div>
+
 <div class="card">
-<h3>Body Mass Index (BMI) Calculator</h3>
-<p>
-BMI is used to check whether a person has a healthy body weight according
-to height.
-</p>
-<p>
-This BMI calculator helps you determine if you are underweight, normal,
-overweight, or obese.
-</p>
+<h2>Age Calculator</h2>
+<input type="date" id="dob">
+<button onclick="ageCalc()">Calculate</button>
+<div class="result" id="ageRes"></div>
 </div>
+
 </div>
 </div>
 
@@ -298,13 +275,23 @@ overweight, or obese.
 <div class="section" id="info">
 <div class="card">
 <h2>About Smart Calculator India</h2>
-<p>Smart Calculator India provides free online calculators for finance, health, unit conversion and daily use.</p>
+<p>
+Smart Calculator India is a free online utility platform offering financial,
+health, and unit conversion calculators. All calculations are for
+informational purposes only.
+</p>
 
 <h3>Privacy Policy</h3>
-<p>We do not collect personal data. Third-party services like Google AdSense may use cookies.</p>
+<p>
+We do not collect personal information. Third-party services like Google
+AdSense may use cookies.
+</p>
 
-<h3>Terms & Disclaimer</h3>
-<p>All results are for informational purposes only. We are not responsible for decisions taken using this website.</p>
+<h3>Disclaimer</h3>
+<p>
+Results shown are estimates only. Users should verify important financial
+or health decisions independently.
+</p>
 </div>
 </div>
 
@@ -323,40 +310,30 @@ document.getElementById(id).classList.add('active');
 btn.classList.add('active');
 }
 
-/* Calculations */
 function interestCalc(){
 let P=+p.value,R=+r.value/100,T=+t.value;
 if(timeUnit.value==="month")T/=12;
 if(timeUnit.value==="day")T/=365;
-let A=interestType.value==="simple"
-?P*(1+R*T)
-:P*Math.pow((1+R/compoundType.value),(compoundType.value*T));
+let A=interestType.value==="simple"?P*(1+R*T):P*Math.pow((1+R/compoundType.value),(compoundType.value*T));
 interestRes.innerText=`Final Amount: ₹${A.toFixed(2)} | Interest: ₹${(A-P).toFixed(2)}`;
 }
-
 function emiCalc(){
 let p=loanAmt.value,r=loanRate.value/1200,n=loanTenure.value*12;
 let emi=p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
 emiRes.innerText="Monthly EMI: ₹"+emi.toFixed(2);
-emiExtra.innerText="Total: ₹"+(emi*n).toFixed(2)+" | Interest: ₹"+((emi*n)-p).toFixed(2);
+emiExtra.innerText="Total: ₹"+(emi*n).toFixed(2);
 }
-
 function distanceCalc(){
-let m={km:1000,m:1,mile:1609.34,yard:.9144,feet:.3048};
-let x=distVal.value*m[fromDist.value];
-distRes.innerText=(x/m[toDist.value]).toFixed(4)+" "+toDist.value;
+let m={km:1000,m:1,mile:1609.34};
+distRes.innerText=(distVal.value*m[fromDist.value]/m[toDist.value]).toFixed(3);
 }
-
 function weightCalc(){
-let m={kg:1,g:.001,lb:.453592,oz:.0283495};
-let x=wVal.value*m[fromW.value];
-wRes.innerText=(x/m[toW.value]).toFixed(4)+" "+toW.value;
+let m={kg:1,g:.001,lb:.453592};
+wRes.innerText=(wVal.value*m[fromW.value]/m[toW.value]).toFixed(3);
 }
-
 function bmiCalc(){
 bmiRes.innerText="BMI: "+(weight.value/((height.value/100)**2)).toFixed(1);
 }
-
 function ageCalc(){
 let d=new Date(dob.value),t=new Date();
 let a=t.getFullYear()-d.getFullYear();
@@ -364,11 +341,6 @@ if(t<new Date(d.setFullYear(t.getFullYear())))a--;
 ageRes.innerText=a+" years";
 }
 
-function dateDiff(){
-dateRes.innerText=Math.abs(new Date(d2.value)-new Date(d1.value))/86400000+" days";
-}
-
-/* Currency */
 fetch("https://api.exchangerate.host/latest")
 .then(r=>r.json())
 .then(d=>{
@@ -376,15 +348,13 @@ Object.keys(d.rates).forEach(c=>{
 curFrom.innerHTML+=`<option>${c}</option>`;
 curTo.innerHTML+=`<option>${c}</option>`;
 });
-curFrom.value="INR";
-curTo.value="USD";
+curFrom.value="INR";curTo.value="USD";
 });
 function convertCurrency(){
 fetch(`https://api.exchangerate.host/latest?base=${curFrom.value}&symbols=${curTo.value}`)
 .then(r=>r.json())
 .then(d=>{
-curResult.innerText=
-`${curAmount.value} ${curFrom.value} = ${(curAmount.value*d.rates[curTo.value]).toFixed(2)} ${curTo.value}`;
+curResult.innerText=`${curAmount.value} ${curFrom.value} = ${(curAmount.value*d.rates[curTo.value]).toFixed(2)} ${curTo.value}`;
 });
 }
 </script>
